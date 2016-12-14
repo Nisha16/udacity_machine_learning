@@ -14,6 +14,8 @@ import sys
 from time import time
 sys.path.append("../tools/")
 from email_preprocess import preprocess
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
 
 
 ### features_train and features_test are the features for the training
@@ -26,7 +28,15 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 #########################################################
 ### your code goes here ###
-
+gnb = GaussianNB()
+t0 = time()
+t1 = time()
+gnb.fit(features_train, labels_train)
+print "training time:", round(time()-t0, 3), "s"  # training was fast
+prediction = gnb.predict(features_test)
+print "prediction time:", round(time()-t1, 3), "s" 
+acc = accuracy_score(labels_test, prediction)
+print "accuaracy: ", acc
 
 #########################################################
 

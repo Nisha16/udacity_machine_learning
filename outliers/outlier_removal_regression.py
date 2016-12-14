@@ -27,15 +27,15 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 ### the plotting code below works, and you can see what your regression looks like
 
 
+from sklearn import linear_model
 
 
+reg = linear_model.LinearRegression()
+reg.fit(ages_train,net_worths_train)
+print "co-efficient: ", reg.coef_
+print "Intercept: ", reg.intercept_
 
-
-
-
-
-
-
+print "R-score: ", reg.score(ages_test,net_worths_test)
 try:
     plt.plot(ages, reg.predict(ages), color="blue")
 except NameError:
@@ -78,7 +78,11 @@ if len(cleaned_data) > 0:
     plt.ylabel("net worths")
     plt.show()
 
+    print "New co-efficient: ", reg.coef_
+    print "New Intercept: ", reg.intercept_
+
+    print "New R-score: ", reg.score(ages_test,net_worths_test)
+
 
 else:
     print "outlierCleaner() is returning an empty list, no refitting to be done"
-

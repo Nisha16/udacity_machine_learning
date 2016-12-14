@@ -3,6 +3,13 @@
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
 from class_vis import prettyPicture
+from sklearn.metrics import accuracy_score
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
+from sklearn import tree
+from sklearn.naive_bayes import GaussianNB
+from sklearn import svm
 
 features_train, labels_train, features_test, labels_test = makeTerrainData()
 
@@ -30,14 +37,18 @@ plt.show()
 
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
+# neigh = KNeighborsClassifier(n_neighbors=2)
+# neigh = AdaBoostClassifier()
+# neigh = RandomForestClassifier(min_samples_split=10)
+# neigh = tree.DecisionTreeClassifier(min_samples_split=4)
+# neigh = GaussianNB()
+neigh = svm.SVC(C=10000.0,kernel="poly")
 
+neigh.fit(features_train, labels_train) 
+pred = neigh.predict(features_test)
+accK = accuracy_score(labels_test, pred)
 
-
-
-
-
-
-
+print accK
 try:
     prettyPicture(clf, features_test, labels_test)
 except NameError:
